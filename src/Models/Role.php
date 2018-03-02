@@ -104,6 +104,18 @@ class Role extends Model implements RoleContract
 
         return $role;
     }
+    
+    public static function findByCriteria(Criteria $criteria, $guardName = null): RoleContract
+    { 
+        $guardName = $guardName ?? Guard::getDefaultName(static::class);
+        
+        $match = self::resolveCriteria($criteria, static::pluck('name', 'id'));
+        
+        $role = static::whereIn('id', $match)->where('guard_name', $guardName)->first();
+        
+        return $role;
+    }
+ 
 
     /**
      * Determine if the user may perform the given permission.
