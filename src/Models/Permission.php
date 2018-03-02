@@ -115,6 +115,20 @@ class Permission extends Model implements PermissionContract
 
         return $permission;
     }
+    
+    public static function findByCriteria(Criteria $criteria, $guardName = null): PermissionContract
+    { 
+        $guardName = $guardName ?? Guard::getDefaultName(static::class);
+        
+        $permissions = self::getPermissions()->pluck('name', 'id');
+        
+        $match = self::resolveCriteria($criteria, $permissions);
+        
+        $permission = static::whereIn('id', $match)->where('guard_name', $guardName)->first();
+        
+        return $permission;
+    }
+
 
     /**
      * Find or create permission by its name (and optionally guardName).
