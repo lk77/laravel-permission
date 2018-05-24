@@ -77,6 +77,12 @@ return [
      */
 
     'cache_expiration_time' => 60 * 24,
+    
+    /*
+     * The cache key that will be used to store all permisions.
+     */
+
+    'cache_key' => 'spatie.permission.cache',
 
     /*
      * When set to true, the required permission/role names are added to the exception
