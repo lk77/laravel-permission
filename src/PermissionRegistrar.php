@@ -18,12 +18,13 @@ class PermissionRegistrar
     protected $cache;
 
     /** @var string */
-    protected $cacheKey = 'spatie.permission.cache';
+    protected $cacheKey;
 
     public function __construct(Gate $gate, Repository $cache)
     {
         $this->gate = $gate;
         $this->cache = $cache;
+        $this->cacheKey = config('permission.cache_key');
     }
 
     public function registerPermissions(): bool
